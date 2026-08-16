@@ -1,0 +1,139 @@
+# What Happens When You Type https://www.google.com in Your Browser and Press Enter?
+
+Have you ever wondered what happens behind the scenes when you type `https://www.google.com` into your browser and press Enter?
+
+Although it looks like a simple action, it triggers a complex sequence of events involving DNS, networking protocols, security mechanisms, load balancing, web servers, application servers, and databases.
+
+In this article, I will explain the main steps that occur between entering the URL and receiving the webpage.
+
+## 1. DNS Request
+
+The first step is resolving the domain name.
+
+Humans use domain names such as `www.google.com`, but computers communicate using IP addresses. Therefore, the browser needs to discover the IP address associated with the domain.
+
+The browser first checks its own DNS cache. If the address is not found, the operating system may check its DNS cache and configuration. If it is still not available, a DNS request is sent to a DNS resolver.
+
+The DNS resolver finds the appropriate DNS records and eventually returns an IP address for the requested domain.
+
+The browser can now use this IP address to communicate with the destination server.
+
+## 2. TCP/IP Connection
+
+After obtaining the IP address, the browser needs to establish a network connection with the destination.
+
+The Internet uses the TCP/IP protocol suite to transfer data between devices.
+
+For an HTTPS connection, the browser normally connects to port `443`.
+
+TCP establishes a reliable connection using the TCP three-way handshake:
+
+1. The client sends a `SYN` packet.
+2. The server responds with `SYN-ACK`.
+3. The client responds with `ACK`.
+
+Once the TCP connection has been established, data can be exchanged reliably between the browser and the server.
+
+IP is responsible for addressing and routing packets across networks, while TCP provides reliable and ordered delivery of data.
+
+## 3. Firewall
+
+Before traffic reaches the application infrastructure, it may pass through one or more firewalls.
+
+A firewall monitors network traffic and applies security rules to determine which connections are allowed or blocked.
+
+For example, the infrastructure may allow HTTPS traffic through port `443` while blocking unauthorized ports and suspicious traffic.
+
+Firewalls provide an important security layer between the public Internet and internal systems.
+
+## 4. HTTPS and SSL/TLS
+
+Because the URL begins with `https://`, the connection is encrypted using HTTPS.
+
+HTTPS uses TLS (Transport Layer Security) to provide secure communication between the browser and the server.
+
+During the TLS handshake, the server presents a digital certificate. The browser verifies that the certificate is valid and belongs to the requested domain.
+
+The client and server then establish encryption keys that are used to protect the communication.
+
+This prevents attackers from easily reading or modifying sensitive information while it is being transmitted.
+
+Although HTTPS is commonly associated with SSL, modern systems use TLS rather than the older SSL protocols.
+
+## 5. Load Balancer
+
+Large websites such as Google receive enormous numbers of requests. A single server cannot efficiently handle all of this traffic.
+
+A load balancer can distribute incoming requests across multiple backend servers.
+
+Instead of sending every request to one server, the load balancer can select an appropriate server based on factors such as availability, current load, and infrastructure configuration.
+
+This improves scalability, reliability, and availability.
+
+If one server becomes unavailable, traffic can potentially be redirected to other healthy servers.
+
+## 6. Web Server
+
+The request eventually reaches a web server.
+
+A web server is responsible for handling HTTP requests and returning HTTP responses. It can serve static resources such as HTML, CSS, JavaScript, images, and other files.
+
+For dynamic requests, the web server may forward the request to an application server.
+
+Examples of commonly used web server software include Nginx and Apache.
+
+The web server therefore acts as an important layer between the client and the application logic.
+
+## 7. Application Server
+
+The application server is responsible for executing the application's business logic.
+
+For a dynamic request, it may process the request, validate information, perform calculations, communicate with other services, and determine what response should be returned.
+
+The application server may also need information that is stored in a database.
+
+For example, an application might need to retrieve user information, search results, configuration data, or other dynamically generated content.
+
+## 8. Database
+
+If the application needs persistent data, it can communicate with a database.
+
+A database stores structured information that the application needs to operate.
+
+The application server sends a query to the database, the database processes that query, and the resulting data is returned to the application server.
+
+The application then uses this data to construct the appropriate response.
+
+In a large-scale system, there may be multiple database servers, replicas, caches, and other infrastructure components involved.
+
+## 9. The Response Travels Back
+
+After the application has finished processing the request, the response travels back through the infrastructure.
+
+The application server sends the result to the web server or another appropriate component. The response is then returned through the load-balancing and networking layers to the user's browser.
+
+Because the connection uses HTTPS, the transmitted data is protected by TLS while traveling between the client and server.
+
+The browser receives the HTTP response and begins processing it.
+
+## 10. The Browser Renders the Page
+
+Finally, the browser processes the returned resources.
+
+It parses the HTML to construct the DOM (Document Object Model), processes CSS to determine the visual presentation, and executes JavaScript when necessary.
+
+The browser may also make additional HTTP requests for resources such as JavaScript files, CSS files, images, fonts, and API data.
+
+After processing these resources, the browser renders the final page that the user sees.
+
+## Conclusion
+
+Typing `https://www.google.com` into a browser and pressing Enter initiates a much more complicated process than it appears.
+
+The general workflow can be summarized as:
+
+**Browser → DNS → TCP/IP → Firewall → HTTPS/TLS → Load Balancer → Web Server → Application Server → Database → Response → Browser**
+
+Understanding this process is fundamental for software engineers because it connects several important areas of computing, including networking, security, distributed systems, backend development, and web architecture.
+
+The next time you open a website, remember that a simple press of the Enter key can trigger an entire chain of systems working together to deliver the page to your screen.
